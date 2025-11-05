@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Interactive JavaScript Quiz</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="quiz.js" defer></script>
+  </head>
+  <body>
+    <div id="welcomeSection" class="welcome-container">
+      <h2>Welcome to the JavaScript Quiz!</h2>
+      <img src="welcome.png" alt="Welcome Image" />
+      <p>
+        Test your knowledge and see how well you know JavaScript and web
+        development.
+      </p>
+      <button id="startBtn" class="btn">Start Quiz</button>
+    </div>
+    <div class="quiz-container">
+      <h2>JavaScript Quiz</h2>
+      <img id="quizImage" src="image3.png" alt="Quiz Progress Image" />
+      <div id="dialogueBox">
+        <!-- Feedback messages will be injected here -->
+      </div>
+      <div class="progress-bar">
+        <div class="progress-fill" id="progressFill"></div>
+      </div>
+      <form id="quizForm">
+        <div class="question active">
+          <p>1. What does HTML stand for?</p>
+          <label
+            ><input type="radio" name="q1" value="a" /> Hyper Text Markup
+            Language</label
+          >
+          <label
+            ><input type="radio" name="q1" value="b" /> Home Tool Markup
+            Language</label
+          >
+          <label
+            ><input type="radio" name="q1" value="c" /> Hyperlinks and Text
+            Markup Language</label
+          >
+          <label
+            ><input type="radio" name="q1" value="d" /> Hyperlinking Text
+            Management Language</label
+          >
+        </div>
+        <div class="question">
+          <p>2. Which language is used for styling web pages?</p>
+          <label><input type="radio" name="q2" value="a" /> HTML</label>
+          <label><input type="radio" name="q2" value="b" /> jQuery</label>
+          <label><input type="radio" name="q2" value="c" /> CSS</label>
+          <label><input type="radio" name="q2" value="d" /> XML</label>
+        </div>
+        <div class="question">
+          <p>3. What does JS stand for?</p>
+          <label><input type="radio" name="q3" value="a" /> Java Source</label>
+          <label><input type="radio" name="q3" value="b" /> JavaScript</label>
+          <label><input type="radio" name="q3" value="c" /> Just Script</label>
+          <label><input type="radio" name="q3" value="d" /> Jolly Script</label>
+        </div>
+        <div class="question">
+          <p>4. Which HTML tag is used to define an internal style sheet?</p>
+          <label
+            ><input type="radio" name="q4" value="a" /> &lt;script&gt;</label
+          >
+          <label
+            ><input type="radio" name="q4" value="b" /> &lt;style&gt;</label
+          >
+          <label><input type="radio" name="q4" value="c" /> &lt;css&gt;</label>
+          <label><input type="radio" name="q4" value="d" /> &lt;link&gt;</label>
+        </div>
+        <div class="question">
+          <p>5. Which is not a JavaScript data type?</p>
+          <label><input type="radio" name="q5" value="a" /> Number</label>
+          <label><input type="radio" name="q5" value="b" /> Boolean</label>
+          <label><input type="radio" name="q5" value="c" /> Float</label>
+          <label><input type="radio" name="q5" value="d" /> String</label>
+        </div>
+        <div class="question">
+          <p>6. What does DOM stand for?</p>
+          <label
+            ><input type="radio" name="q6" value="a" /> Document Object
+            Model</label
+          >
+          <label
+            ><input type="radio" name="q6" value="b" /> Data Object Model</label
+          >
+          <label
+            ><input type="radio" name="q6" value="c" /> Document Orientation
+            Model</label
+          >
+          <label
+            ><input type="radio" name="q6" value="d" /> Data Orientation
+            Model</label
+          >
+        </div>
+        <button type="button" class="btn" id="nextBtn">Next</button>
+        <button type="submit" class="btn" id="submitBtn" style="display: none">
+          Submit
+        </button>
+      </form>
+      <div class="result" id="result"></div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Interactive JavaScript Quiz</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background: #eef;
+        padding: 20px;
+      }
+      .quiz-container {
+        background: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        max-width: 600px;
+        margin: auto;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        display: none;
+      }
+
+      .welcome-container {
+        background: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        max-width: 600px;
+        margin: auto;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        text-align: center;
+      }
+
+      h2 {
+        text-align: center;
+      }
+      .question {
+        display: none;
+      }
+      .question.active {
+        display: block;
+      }
+      .question label {
+        display: block;
+        margin: 5px 0;
+      }
+      .btn {
+        margin-top: 20px;
+        padding: 10px 20px;
+        font-size: 16px;
+      }
+      .result {
+        text-align: center;
+        font-weight: bold;
+        margin-top: 20px;
+      }
+      .progress-bar {
+        height: 20px;
+        background: #ddd;
+        border-radius: 10px;
+        overflow: hidden;
+        margin-bottom: 20px;
+      }
+      .progress-fill {
+        height: 100%;
+        width: 0%;
+        background: #4caf50;
+        transition: width 0.3s ease;
+      }
+      #quizImage {
+        display: block;
+        margin: 0px auto;
+        max-width: 300px;
+        width: 100%;
+      }
+      #dialogueBox {
+        background: #000;
+        padding: 2rem;
+        color: #fff;
+      }
+      #dialogueBox p {
+        text-align: center;
+        font-style: italic;
+        margin-top: 10px;
+      }
+      .welcome-container,
+      .quiz-container {
+        transition: opacity 0.5s ease;
+      }
+      .fade {
+        animation: fadeIn 0.5s ease-in;
+      }
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="welcomeSection" class="welcome-container">
+      <h2>Welcome to the JavaScript Quiz!</h2>
+      <p>
+        Test your knowledge and see how well you know JavaScript and web
+        development.
+      </p>
+      <button id="startBtn" class="btn">Start Quiz</button>
+    </div>
+    <div class="quiz-container">
+      <h2>JavaScript Quiz</h2>
+      <img id="quizImage" src="image3.png" alt="Quiz Progress Image" />
+      <div id="dialogueBox">
+        <!-- Feedback messages will be injected here -->
+      </div>
+      <div class="progress-bar">
+        <div class="progress-fill" id="progressFill"></div>
+      </div>
+      <form id="quizForm">
+        <div class="question active">
+          <p>1. What does HTML stand for?</p>
+          <label
+            ><input type="radio" name="q1" value="a" /> Hyper Text Markup
+            Language</label
+          >
+          <label
+            ><input type="radio" name="q1" value="b" /> Home Tool Markup
+            Language</label
+          >
+          <label
+            ><input type="radio" name="q1" value="c" /> Hyperlinks and Text
+            Markup Language</label
+          >
+          <label
+            ><input type="radio" name="q1" value="d" /> Hyperlinking Text
+            Management Language</label
+          >
+        </div>
+        <div class="question">
+          <p>2. Which language is used for styling web pages?</p>
+          <label><input type="radio" name="q2" value="a" /> HTML</label>
+          <label><input type="radio" name="q2" value="b" /> jQuery</label>
+          <label><input type="radio" name="q2" value="c" /> CSS</label>
+          <label><input type="radio" name="q2" value="d" /> XML</label>
+        </div>
+        <div class="question">
+          <p>3. What does JS stand for?</p>
+          <label><input type="radio" name="q3" value="a" /> Java Source</label>
+          <label><input type="radio" name="q3" value="b" /> JavaScript</label>
+          <label><input type="radio" name="q3" value="c" /> Just Script</label>
+          <label><input type="radio" name="q3" value="d" /> Jolly Script</label>
+        </div>
+        <div class="question">
+          <p>4. Which HTML tag is used to define an internal style sheet?</p>
+          <label
+            ><input type="radio" name="q4" value="a" /> &lt;script&gt;</label
+          >
+          <label
+            ><input type="radio" name="q4" value="b" /> &lt;style&gt;</label
+          >
+          <label><input type="radio" name="q4" value="c" /> &lt;css&gt;</label>
+          <label><input type="radio" name="q4" value="d" /> &lt;link&gt;</label>
+        </div>
+        <div class="question">
+          <p>5. Which is not a JavaScript data type?</p>
+          <label><input type="radio" name="q5" value="a" /> Number</label>
+          <label><input type="radio" name="q5" value="b" /> Boolean</label>
+          <label><input type="radio" name="q5" value="c" /> Float</label>
+          <label><input type="radio" name="q5" value="d" /> String</label>
+        </div>
+        <div class="question">
+          <p>6. What does DOM stand for?</p>
+          <label
+            ><input type="radio" name="q6" value="a" /> Document Object
+            Model</label
+          >
+          <label
+            ><input type="radio" name="q6" value="b" /> Data Object Model</label
+          >
+          <label
+            ><input type="radio" name="q6" value="c" /> Document Orientation
+            Model</label
+          >
+          <label
+            ><input type="radio" name="q6" value="d" /> Data Orientation
+            Model</label
+          >
+        </div>
+        <button type="button" class="btn" id="nextBtn">Next</button>
+        <button type="submit" class="btn" id="submitBtn" style="display: none">
+          Submit
+        </button>
+      </form>
+      <div class="result" id="result"></div>
+    </div>
+
+    <script>
+      const quizData = [
+        {
+          key: "q1",
+          answer: "a",
+          dialogue: {
+            correct: "Nice job! HTML is the backbone of web pages.",
+            incorrect: "Oops! HTML stands for Hyper Text Markup Language.",
+          },
+        },
+        {
+          key: "q2",
+          answer: "c",
+          dialogue: {
+            correct: "Exactly! CSS styles the web.",
+            incorrect: "Not quite. CSS is used for styling web pages.",
+          },
+        },
+        {
+          key: "q3",
+          answer: "b",
+          dialogue: {
+            correct: "Correct! JS is short for JavaScript.",
+            incorrect: "Wrong. JS stands for JavaScript.",
+          },
+        },
+        {
+          key: "q4",
+          answer: "b",
+          dialogue: {
+            correct: "Yep! <style> is used for internal styles.",
+            incorrect: "Incorrect. The correct tag is <style>.",
+          },
+        },
+        {
+          key: "q5",
+          answer: "c",
+          dialogue: {
+            correct: "Right! JavaScript doesn't have a Float type.",
+            incorrect: "Nope. Float isn't a JavaScript data type.",
+          },
+        },
+        {
+          key: "q6",
+          answer: "a",
+          dialogue: {
+            correct: "Well done! DOM means Document Object Model.",
+            incorrect: "Wrong. DOM stands for Document Object Model.",
+          },
+        },
+      ];
+
+      const welcomeSection = document.getElementById("welcomeSection");
+      const quizContainer = document.querySelector(".quiz-container");
+      const startBtn = document.getElementById("startBtn");
+
+      startBtn.addEventListener("click", () => {
+        welcomeSection.style.display = "none";
+        quizContainer.style.display = "block";
+        questions[currentQuestion].classList.add("active");
+      });
+
+      const questions = document.querySelectorAll(".question");
+      const progressFill = document.getElementById("progressFill");
+      const imageElement = document.getElementById("quizImage");
+      const dialogueBox = document.getElementById("dialogueBox");
+      let currentQuestion = 0;
+      let imageIndex = 3;
+
+      const nextBtn = document.getElementById("nextBtn");
+      const submitBtn = document.getElementById("submitBtn");
+
+      function updateProgress() {
+        const percent = ((currentQuestion + 1) / questions.length) * 100;
+        progressFill.style.width = `${percent}%`;
+      }
+
+      function showDialogue(text) {
+        dialogueBox.innerHTML = "";
+        const feedback = document.createElement("p");
+        feedback.classList.add("fade");
+        feedback.textContent = text;
+        dialogueBox.appendChild(feedback);
+      }
+
+      updateProgress();
+
+      nextBtn.addEventListener("click", () => {
+        const currentItem = quizData[currentQuestion];
+        const selected = document.querySelector(
+          `input[name="${currentItem.key}"]:checked`
+        );
+
+        if (selected) {
+          if (selected.value === currentItem.answer) {
+            imageIndex = Math.max(1, imageIndex - 1);
+            showDialogue(currentItem.dialogue.correct);
+          } else {
+            imageIndex = Math.min(6, imageIndex + 1);
+            showDialogue(currentItem.dialogue.incorrect);
+          }
+          imageElement.src = `image${imageIndex}.png`;
+        }
+
+        questions[currentQuestion].classList.remove("active");
+        currentQuestion++;
+        if (currentQuestion < questions.length) {
+          questions[currentQuestion].classList.add("active");
+          updateProgress();
+          if (currentQuestion === questions.length - 1) {
+            nextBtn.style.display = "none";
+            submitBtn.style.display = "inline-block";
+          }
+        }
+      });
+
+      document
+        .getElementById("quizForm")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+          let score = 0;
+
+          quizData.forEach((item) => {
+            const selected = document.querySelector(
+              `input[name="${item.key}"]:checked`
+            );
+            if (selected && selected.value === item.answer) {
+              score++;
+            }
+          });
+
+          document.getElementById(
+            "result"
+          ).textContent = `You scored ${score} out of 6`;
+
+          if (score >= 3) {
+            imageElement.src = "image0.png";
+            showDialogue("Great job! You really know your stuff.");
+          } else {
+            imageElement.src = "image7.png";
+            showDialogue("Better luck next time. Keep practicing!");
+          }
+
+          submitBtn.style.display = "none";
+          progressFill.style.width = "100%";
+        });
+    </script>
+  </body>
+</html>
