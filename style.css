@@ -43,6 +43,13 @@ body {
 h2 {
   text-align: center;
 }
+
+.quiz-container h2 {
+  text-align: center;
+  background: chocolate;
+  border-radius: 1rem;
+  padding: 1rem;
+}
 .question {
   display: none;
 }
@@ -52,7 +59,22 @@ h2 {
 .question label {
   display: block;
   margin: 5px 0;
+  background: darkcyan;
+  padding: 0.4rem;
+  border-radius: 1rem;
+  max-width: 45%;
+  flex: 50%;
+  color: #dddddd;
 }
+
+.choices {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
 .btn {
   margin-top: 20px;
   padding: 10px 20px;
@@ -75,6 +97,7 @@ h2 {
   width: 0%;
   background: #409780;
   transition: width 0.3s ease;
+  background-image: linear-gradient(45deg, #e5e5e5, transparent);
 }
 #quizImage {
   display: block;
