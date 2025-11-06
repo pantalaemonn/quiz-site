@@ -52,6 +52,14 @@ const quizData = [
 const welcomeSection = document.getElementById("welcomeSection");
 const quizContainer = document.querySelector(".quiz-container");
 const startBtn = document.getElementById("startBtn");
+const questions = document.querySelectorAll(".question");
+const progressFill = document.getElementById("progressFill");
+const imageElement = document.getElementById("quizImage");
+const dialogueBox = document.getElementById("dialogueBox");
+const nextBtn = document.getElementById("nextBtn");
+const submitBtn = document.getElementById("submitBtn");
+let currentQuestion = 0;
+let imageIndex = 5; // Start from neutral image
 
 startBtn.addEventListener("click", () => {
   welcomeSection.style.display = "none";
@@ -59,16 +67,6 @@ startBtn.addEventListener("click", () => {
   questions[currentQuestion].classList.add("active");
   handleAnswerSelection(); // Next button disable logic
 });
-
-const questions = document.querySelectorAll(".question");
-const progressFill = document.getElementById("progressFill");
-const imageElement = document.getElementById("quizImage");
-const dialogueBox = document.getElementById("dialogueBox");
-let currentQuestion = 0;
-let imageIndex = 3;
-
-const nextBtn = document.getElementById("nextBtn");
-const submitBtn = document.getElementById("submitBtn");
 
 // Disable Next button initially
 function handleAnswerSelection() {
@@ -112,7 +110,7 @@ nextBtn.addEventListener("click", () => {
       imageIndex = Math.max(1, imageIndex - 1);
       showDialogue(currentItem.dialogue.correct);
     } else {
-      imageIndex = Math.min(6, imageIndex + 1);
+      imageIndex = Math.min(8, imageIndex + 1);
       showDialogue(currentItem.dialogue.incorrect);
     }
     imageElement.src = `image${imageIndex}.png`;
@@ -150,10 +148,12 @@ document.getElementById("quizForm").addEventListener("submit", function (e) {
 
   if (score >= 3) {
     imageElement.src = "image0.png";
-    showDialogue("Great job! You really know your stuff.");
+    showDialogue(
+      "You're hired, matey. Pack your stuff and get aboard, we're space-bound by sundown."
+    );
   } else {
-    imageElement.src = "image7.png";
-    showDialogue("Better luck next time. Keep practicing!");
+    imageElement.src = "image9.png";
+    showDialogue("Too bad, landlubber... Your ignorance offends me.");
   }
 
   submitBtn.style.display = "none";
