@@ -3,9 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Interactive JavaScript Quiz</title>
+    <title>Space Cowboy</title>
     <link rel="stylesheet" href="style.css" />
     <script src="quiz.js" defer></script>
+    <script src="data.js" defer></script>
   </head>
   <body>
     <div id="welcomeSection" class="welcome-container">
@@ -25,65 +26,69 @@
       </div>
       <form id="quizForm">
         <div class="question active">
-          <h2>1. What does HTML stand for?</h2>
+          <h2>What is a method in JavaScript?</h2>
           <div class="choices">
             <label
-              ><input type="radio" name="q1" value="a" /> Hyper Text Markup
-              Language</label
+              ><input type="radio" name="q1" value="a" /> A standalone
+              function</label
             >
             <label
-              ><input type="radio" name="q1" value="b" /> Home Tool Markup
-              Language</label
+              ><input type="radio" name="q1" value="b" /> A function that is
+              defined within an object</label
             >
             <label
-              ><input type="radio" name="q1" value="c" /> Hyperlinks and Text
-              Markup Language</label
+              ><input type="radio" name="q1" value="c" /> A function that is not
+              defined within an object</label
             >
             <label
-              ><input type="radio" name="q1" value="d" /> Hyperlinking Text
-              Management Language</label
+              ><input type="radio" name="q1" value="d" /> A soap brand.</label
             >
           </div>
         </div>
         <div class="question">
-          <h2>2. Which language is used for styling web pages?</h2>
-          <div class="choices">
-            <label><input type="radio" name="q2" value="a" /> HTML</label>
-            <label><input type="radio" name="q2" value="b" /> jQuery</label>
-            <label><input type="radio" name="q2" value="c" /> CSS</label>
-            <label><input type="radio" name="q2" value="d" /> XML</label>
-          </div>
-        </div>
-        <div class="question">
-          <h2>3. What does JS stand for?</h2>
+          <h2>Which method converts a JSON string into a JavaScript object?</h2>
           <div class="choices">
             <label
-              ><input type="radio" name="q3" value="a" /> Java Source</label
-            >
-            <label><input type="radio" name="q3" value="b" /> JavaScript</label>
-            <label
-              ><input type="radio" name="q3" value="c" /> Just Script</label
+              ><input type="radio" name="q2" value="a" />
+              JSON.stringify()</label
             >
             <label
-              ><input type="radio" name="q3" value="d" /> Jolly Script</label
+              ><input type="radio" name="q2" value="b" /> JSON.parse()</label
+            >
+            <label><input type="radio" name="q2" value="c" /> JSON.wtf()</label>
+            <label
+              ><input type="radio" name="q2" value="d" /> JSON.convert()</label
             >
           </div>
         </div>
         <div class="question">
-          <h2>4. Which HTML tag is used to define an internal style sheet?</h2>
+          <h2>What does the 'this' keyword refer to in a regular function?</h2>
           <div class="choices">
             <label
-              ><input type="radio" name="q4" value="a" /> &lt;script&gt;</label
+              ><input type="radio" name="q3" value="a" /> The global
+              object</label
             >
             <label
-              ><input type="radio" name="q4" value="b" /> &lt;style&gt;</label
+              ><input type="radio" name="q3" value="b" /> The function
+              itself</label
             >
             <label
-              ><input type="radio" name="q4" value="c" /> &lt;css&gt;</label
+              ><input type="radio" name="q3" value="c" /> This handsome
+              chappy</label
             >
             <label
-              ><input type="radio" name="q4" value="d" /> &lt;link&gt;</label
+              ><input type="radio" name="q3" value="d" /> The parent
+              object</label
             >
+          </div>
+        </div>
+        <div class="question">
+          <h2>Which symbol is used for single-line comments in JavaScript?</h2>
+          <div class="choices">
+            <label><input type="radio" name="q4" value="a" /> !~~ ~~></label>
+            <label><input type="radio" name="q4" value="b" /> ##</label>
+            <label><input type="radio" name="q4" value="c" /> //</label>
+            <label><input type="radio" name="q4" value="d" /> /* */</label>
           </div>
         </div>
         <div class="question">
@@ -116,16 +121,40 @@
             >
           </div>
         </div>
-        <img id="quizImage" src="image5.png" alt="Quiz Progress Image" />
-        <div id="dialogueBox">
-          <!-- Feedback messages will be injected here -->
+        <div class="character">
+          <img id="quizImage" src="image5.png" alt="Quiz Progress Image" />
+          <div id="dialogueBox">
+            <!-- Feedback messages will be injected here -->
+          </div>
         </div>
-        <button type="button" class="btn" id="nextBtn">Next</button>
-        <button type="submit" class="btn" id="submitBtn" style="display: none">
-          Submit
-        </button>
+        <div class="controls">
+          <button type="button" class="btn" id="nextBtn">Next</button>
+          <button
+            type="submit"
+            class="btn"
+            id="submitBtn"
+            style="display: none"
+          >
+            Submit
+          </button>
+          <button id="restartBtn" style="display: none">Restart Quiz</button>
+        </div>
+        <div class="result" id="result"></div>
       </form>
-      <div class="result" id="result"></div>
+    </div>
+    <!-- Help Button -->
+    <button id="helpBtn">Help</button>
+
+    <!-- Help Overlay -->
+    <div id="helpOverlay">
+      <div class="help-content">
+        <h2>Hey, Space Cowboy.</h2>
+        <p>
+          This is a high stakes job interview, and a bad run of answers could
+          cost you your life! Be careful out there.
+        </p>
+        <button id="closeHelp">Close</button>
+      </div>
     </div>
   </body>
 </html>

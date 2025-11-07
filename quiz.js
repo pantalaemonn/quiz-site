@@ -1,54 +1,3 @@
-const quizData = [
-  {
-    key: "q1",
-    answer: "a",
-    dialogue: {
-      correct: "Nice job! HTML is the backbone of web pages.",
-      incorrect: "Oops! HTML stands for Hyper Text Markup Language.",
-    },
-  },
-  {
-    key: "q2",
-    answer: "c",
-    dialogue: {
-      correct: "Exactly! CSS styles the web.",
-      incorrect: "Not quite. CSS is used for styling web pages.",
-    },
-  },
-  {
-    key: "q3",
-    answer: "b",
-    dialogue: {
-      correct: "Correct! JS is short for JavaScript.",
-      incorrect: "Wrong. JS stands for JavaScript.",
-    },
-  },
-  {
-    key: "q4",
-    answer: "b",
-    dialogue: {
-      correct: "Yep! <style> is used for internal styles.",
-      incorrect: "Incorrect. The correct tag is <style>.",
-    },
-  },
-  {
-    key: "q5",
-    answer: "c",
-    dialogue: {
-      correct: "Right! JavaScript doesn't have a Float type.",
-      incorrect: "Nope. Float isn't a JavaScript data type.",
-    },
-  },
-  {
-    key: "q6",
-    answer: "a",
-    dialogue: {
-      correct: "Well done! DOM means Document Object Model.",
-      incorrect: "Wrong. DOM stands for Document Object Model.",
-    },
-  },
-];
-
 const welcomeSection = document.getElementById("welcomeSection");
 const quizContainer = document.querySelector(".quiz-container");
 const startBtn = document.getElementById("startBtn");
@@ -58,30 +7,61 @@ const imageElement = document.getElementById("quizImage");
 const dialogueBox = document.getElementById("dialogueBox");
 const nextBtn = document.getElementById("nextBtn");
 const submitBtn = document.getElementById("submitBtn");
+const restartBtn = document.getElementById("restartBtn");
+const helpBtn = document.getElementById("helpBtn");
+const helpOverlay = document.getElementById("helpOverlay");
+const closeHelp = document.getElementById("closeHelp");
 let currentQuestion = 0;
-let imageIndex = 5; // Start from neutral image
+let imageIndex = 5;
+let wrongStreak = 0;
 
-startBtn.addEventListener("click", () => {
-  welcomeSection.style.display = "none";
-  quizContainer.style.display = "block";
-  questions[currentQuestion].classList.add("active");
-  handleAnswerSelection(); // Next button disable logic
+// Help popup
+helpBtn.addEventListener("click", () => {
+  helpOverlay.style.display = "flex";
 });
 
-// Disable Next button initially
+closeHelp.addEventListener("click", () => {
+  helpOverlay.style.display = "none";
+});
+
+startBtn.addEventListener("click", () => {
+  // Reset state
+  currentQuestion = 0;
+  wrongStreak = 0;
+  imageIndex = 5;
+  progressFill.style.width = "0%";
+  quizContainer.style.backgroundColor = "";
+
+  // Reset UI
+  welcomeSection.style.display = "none";
+  quizContainer.style.display = "block";
+  questions.forEach((q) => q.classList.remove("active"));
+  questions[currentQuestion].classList.add("active");
+  submitBtn.style.display = "none";
+  nextBtn.style.display = "inline-block";
+  restartBtn.style.display = "none";
+  imageElement.src = "image5.png";
+  dialogueBox.innerHTML = "";
+
+  // Reset answers
+  quizData.forEach((item) => {
+    const options = document.querySelectorAll(`input[name="${item.key}"]`);
+    options.forEach((opt) => (opt.checked = false));
+  });
+
+  handleAnswerSelection();
+});
+
 function handleAnswerSelection() {
   const currentItem = quizData[currentQuestion];
   const options = document.querySelectorAll(`input[name="${currentItem.key}"]`);
-  const nextBtn = document.getElementById("nextBtn");
+  nextBtn.disabled = true;
 
   options.forEach((option) => {
     option.addEventListener("change", () => {
       nextBtn.disabled = false;
     });
   });
-
-  // Disable the button again when moving to a new question
-  nextBtn.disabled = true;
 }
 
 function updateProgress() {
@@ -97,8 +77,6 @@ function showDialogue(text) {
   dialogueBox.appendChild(feedback);
 }
 
-updateProgress();
-
 nextBtn.addEventListener("click", () => {
   const currentItem = quizData[currentQuestion];
   const selected = document.querySelector(
@@ -109,10 +87,24 @@ nextBtn.addEventListener("click", () => {
     if (selected.value === currentItem.answer) {
       imageIndex = Math.max(1, imageIndex - 1);
       showDialogue(currentItem.dialogue.correct);
+      wrongStreak = 0;
     } else {
       imageIndex = Math.min(8, imageIndex + 1);
       showDialogue(currentItem.dialogue.incorrect);
+      wrongStreak++;
+
+      if (wrongStreak >= 4) {
+        quizContainer.style.backgroundColor = "red";
+        imageElement.src = "image9.png";
+        showDialogue("You're on a streak, cowboy... the wrong kind of streak.");
+        nextBtn.style.display = "none";
+        submitBtn.style.display = "none";
+        progressFill.style.width = "100%";
+        restartBtn.style.display = "inline-block";
+        return;
+      }
     }
+
     imageElement.src = `image${imageIndex}.png`;
   }
 
@@ -121,7 +113,7 @@ nextBtn.addEventListener("click", () => {
   if (currentQuestion < questions.length) {
     questions[currentQuestion].classList.add("active");
     updateProgress();
-    handleAnswerSelection(); // Next button disable logic
+    handleAnswerSelection();
     if (currentQuestion === questions.length - 1) {
       nextBtn.style.display = "none";
       submitBtn.style.display = "inline-block";
@@ -158,4 +150,31 @@ document.getElementById("quizForm").addEventListener("submit", function (e) {
 
   submitBtn.style.display = "none";
   progressFill.style.width = "100%";
+  restartBtn.style.display = "inline-block";
+});
+
+restartBtn.addEventListener("click", () => {
+  // Reset state
+  currentQuestion = 0;
+  wrongStreak = 0;
+  imageIndex = 5;
+  progressFill.style.width = "0%";
+  quizContainer.style.backgroundColor = "";
+
+  // Reset UI
+  quizContainer.style.display = "none";
+  welcomeSection.style.display = "block";
+  questions.forEach((q) => q.classList.remove("active"));
+  submitBtn.style.display = "none";
+  nextBtn.style.display = "inline-block";
+  restartBtn.style.display = "none";
+  imageElement.src = "image5.png";
+  dialogueBox.innerHTML = "";
+  document.getElementById("result").textContent = "";
+
+  // Reset answers
+  quizData.forEach((item) => {
+    const options = document.querySelectorAll(`input[name="${item.key}"]`);
+    options.forEach((opt) => (opt.checked = false));
+  });
 });
