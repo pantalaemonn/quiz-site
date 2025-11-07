@@ -11,9 +11,28 @@ const restartBtn = document.getElementById("restartBtn");
 const helpBtn = document.getElementById("helpBtn");
 const helpOverlay = document.getElementById("helpOverlay");
 const closeHelp = document.getElementById("closeHelp");
+const timerDisplay = document.getElementById("timer");
 let currentQuestion = 0;
 let imageIndex = 5;
 let wrongStreak = 0;
+let timerInterval;
+let timeLeft = 20;
+
+function startTimer() {
+  clearInterval(timerInterval); // Clear any existing timer
+  timeLeft = 20;
+  timerDisplay.textContent = `Time left: ${timeLeft}s`;
+
+  timerInterval = setInterval(() => {
+    timeLeft--;
+    timerDisplay.textContent = `Time left: ${timeLeft}s`;
+
+    if (timeLeft <= 0) {
+      clearInterval(timerInterval);
+      nextBtn.click(); // Automatically move to next question
+    }
+  }, 1000);
+}
 
 // Help popup
 helpBtn.addEventListener("click", () => {
@@ -62,6 +81,8 @@ function handleAnswerSelection() {
       nextBtn.disabled = false;
     });
   });
+
+  startTimer(); // Start countdown for each question
 }
 
 function updateProgress() {
@@ -123,6 +144,7 @@ nextBtn.addEventListener("click", () => {
 
 document.getElementById("quizForm").addEventListener("submit", function (e) {
   e.preventDefault();
+  clearInterval(timerInterval);
   let score = 0;
 
   quizData.forEach((item) => {
@@ -138,7 +160,7 @@ document.getElementById("quizForm").addEventListener("submit", function (e) {
     "result"
   ).textContent = `You scored ${score} out of 6`;
 
-  if (score >= 3) {
+  if (score >= 4) {
     imageElement.src = "image0.png";
     showDialogue(
       "You're hired, matey. Pack your stuff and get aboard, we're space-bound by sundown."
@@ -154,6 +176,7 @@ document.getElementById("quizForm").addEventListener("submit", function (e) {
 });
 
 restartBtn.addEventListener("click", () => {
+  clearInterval(timerInterval);
   // Reset state
   currentQuestion = 0;
   wrongStreak = 0;
